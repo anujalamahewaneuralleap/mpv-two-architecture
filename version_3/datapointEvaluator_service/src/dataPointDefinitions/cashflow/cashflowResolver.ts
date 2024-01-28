@@ -2,9 +2,9 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import axios from "axios";
 
 // imports for calculations
-import { calculateNetIncome } from "../cashflow/netIncome/netIncomeService";
-import { calculatenetOtherIncome } from "../cashflow/netOtherIncome/netOtherIncomeService";
-import { calculateOrdinaryIncome } from "../cashflow/netOrdinaryIncome/netOrdinaryIncomeService";
+import { calculateNetIncome } from "./03_netIncome/netIncomeService";
+import { calculatenetOtherIncome } from "./13_netOtherIncome/netOtherIncomeService";
+import { calculateOrdinaryIncome } from "./07_netOrdinaryIncome/netOrdinaryIncomeService";
 
 let result = 0 // this is the final calculated value
 
