@@ -1,5 +1,161 @@
+01-23-2024
+
+Boomer Baker
+3. Please do the following for the Unisyn project
+a. I would like you to try to help me think through the system architecture here while Buddika works to get everything on track for MVP 1
+b. Here is a brief video on the current thinking of the architecture for MVP 2: https://www.loom.com/share/f89b1c28d25642279a8df4bc2df36228?sid=1cb7e790-6c85-4247-9379-403ce2988787
+c. Help me think through the problem I mentioned. I have a meeting with Justin P about it at 2:00 PM but am going to aim to push it to Thursday
+
+01-24-2024
+
+Boomer Baker
+@Anuja Lamahewa Have you had a chance to review the video I sent above for the system design for Unisyn?
+
+Anuja Lamahewa 
+Yes, give me a couple of hours, I will send you a loom.
+
+Boomer Baker
+@Anuja Lamahewa Sounds good. What time do you expect to be able to send this?
+
+Anuja Lamahewa
+
+@Boomer Baker  I hope I didn't go too out of the box with this:
+The reason I mention oracle is that we can do complicated calculations via SQL.
+
+https://www.loom.com/share/2e45769d8e554043a275f67c78b66eae?sid=ce3315a4-62e4-417d-bcab-19066037c454
+
+https://excalidraw.com/#json=aGFRqJCu5tG6cwhfT4gRs,8vIeccyfWaga5PWVU-u1zQ
+
+Boomer Baker
+@Anuja Lamahewa  In regard to precomputing all value that is the conclusion Justin P and I came to today and we would like to go down that route. I will give more details in my feedback
+
+Boomer Baker
+Yes, here you go: https://link.excalidraw.com/l/uBtKLXMlH/9MKnOPgDyoO
+
+Boomer Baker
 3. Please do the following for the Unisyn project today
 a. Here is a video going over the architectural decisions we made today: https://www.loom.com/share/78b0ed14ad284c5085b6f100bc6a75c3?sid=39bf2329-45fa-45cc-8ab3-ddc9fa5ebb20 and here is the Excalidraw link: https://link.excalidraw.com/l/uBtKLXMlH/8NS711ayuIR
 b. Attached is the folder structure. Please focus on just the part that contains the code for the cashflow API. Help me create the algorithm needed for the Cashflow API as discussed in the video
 c. Help me think through if it would make sense to limit the workers or let them scale infinitely
 d. Also once this is done we need to start scoping out Swagger files so the frontend can go ahead and integrate with the API as Justin has mentioned. focus on the above first
+
+01-25-2024
+
+Boomer Baker
+3. Please do the following for the Unisyn project today
+a. Here is a video going over the architectural decisions we made today: https://www.loom.com/share/78b0ed14ad284c5085b6f100bc6a75c3?sid=39bf2329-45fa-45cc-8ab3-ddc9fa5ebb20 and here is the Excalidraw link: https://link.excalidraw.com/l/uBtKLXMlH/8NS711ayuIR
+b. Attached is the folder structure. Please focus on just the part that contains the code for the cashflow API. Help me create the algorithm needed for the Cashflow API as discussed in the video
+c. Help me think through if it would make sense to limit the workers or let them scale infinitely
+d. Also once this is done we need to start scoping out Swagger files so the frontend can go ahead and integrate with the API as Justin has mentioned. focus on the above first
+
+Boomer Baker
+@Anuja Lamahewa Can you let me know when you are on? I need something to show the Unisyn team tomorrow in regard to the algorithm design based on my folder structure. We need to move fast on this. Use ChatGPT to help you think through it
+
+Anuja Lamahewa
+@Boomer Baker It took me some time to figure out the routes, I was focused on getting the Postman working.
+https://www.loom.com/share/c3226b95715d469c8cd1e7826c60edc5?sid=dc3e8114-2092-4040-87a7-fe6a02e123a2
+
+Boomer Baker
+@Anuja Lamahewa Remember we are using GraphQL which I am a bit unfamiliar with. The routing logic should be within the resolver folder though from my understanding
+Also, one key difference with GrapghQL is that it is just one API call to get all data
+
+Anuja Lamahewa
+@Boomer Baker few things to clarify
+https://www.loom.com/share/a8f65e2c23f14a1493023f812e8c844d?sid=cce9bbb7-27c0-4399-9c04-e0bf2e030c97
+
+Boomer Baker
+@Anuja Lamahewa Yes the plan is to use GraphQL but no we are not supposed to call the DocEasy API.
+We would be making a direct call to the database. I asked Mohammed to send me a JSON object of what the data looks like for this. Then the plan would be to update a cache which the frontend would be make a request to
+
+Boomer Baker
+@Anuja Lamahewa Does this help clarify things?
+
+Anuja Lamahewa 
+@Boomer Baker yes, I will try to implement the logic, I'm also learning GraphQL these days.
+
+Boomer Baker
+@Anuja Lamahewa I left comments on your two videos
+
+@Anuja Lamahewa I was incorrect. The plan would be to make an API call to DocEasy to get the data needed about certain documents. Here are details for the retrieval API for DocEasy Mohammed just sent me
+Here is the retrieval API documentation to give you an idea:
+https://documenter.getpostman.com/view/24673205/2s9Ykkeha7
+The db we are using is the document ai warehouse and in there, for each user we have a folder, within that folder, we have a folder for each document type we will be parsing, and within those are the extracted data for each document parsed. Here is a visual:
+
+Boomer Baker
+@Anuja Lamahewa I got this folder structure from Justin P for something he marked up really quickly. See what you think of this
+
+01-26-2024
+
+Boomer Baker
+@Anuja Lamahewa Can you let me know when you are in? I need you to make sure you can give me something to demo for my meeting with Unisyn today at 12 PST
+
+Anuja Lamahewa
+@Boomer Baker I need more time to focus and do this, this is my progress so far:
+I didn't use the DatapointEvaluator.zip file, files.
+
+https://www.loom.com/share/34df7842e5da41efb2e6901079bf367b?sid=e0ff8a7b-b3f9-4090-83ef-73cf942a0804
+
+GitHub (these repositories are deleted)
+https://github.com/williamboomer87/unisyn-apollo-server-graphql
+https://github.com/williamboomer87/unisyn-architecture/
+
+Small update: Passing the values to the service to do the calculation
+https://www.loom.com/share/574e0933d25f4d238c0efcabfb0a7553?sid=3fea8937-76d5-4f66-adcb-69fb1879fecd
+
+Small update: Unit tests
+https://www.loom.com/share/7b35c2d59f3b4cbcaac42a2fe33f6734?sid=66459485-ab22-4e5a-ad91-b35a8956a1e1
+
+Boomer Baker
+@Anuja Lamahewa I think having some type of structure like this would be good. dataSources is where we would store each folder with a file for each formula
+├── cashflow-service/
+│   ├── src/
+│   │   ├── dataSources/
+│   │   ├── utils/
+│   │   ├── index.ts
+│   ├── package.json
+│   └── ...
+
+Anuja Lamahewa
+@Boomer Baker I'm going through the folder chamika sent,
+this was what I did:
+https://www.loom.com/share/7b93705a03984d92af5882e9fc4d66e0?sid=3cfa5a26-a9b0-4bc2-83b8-a10206a06159
+I will update the files
+
+Boomer Baker
+@Anuja Lamahewa I think this is looking good so far! Going to review your next video and leave some notes
+
+Anuja Lamahewa
+I went through the zip file, here's my review:
+https://www.loom.com/share/2d01aead4a4b4eeb9516b83f32c0e4ff?sid=60888879-a510-4cc6-9fb4-84901e4fd402
+Questions,
+Do you want me to give you a workable code? or just conceptual files to showcase the idea? because Oralando's code is not buildable at the moment.
+Are we moving ahead with Oralando's implementation of reading the physical files for definitions?
+
+Boomer Baker
+@Anuja Lamahewa Here is some feedback
+1. You are right in that DocEasy will do these calculations: http://tinyurl.com/ynw693kk and pick which source is the most reliable. For now though in each definition file lets do it on our end as well
+2. Keep in mind that the code given is not workable. It's just an example. You are right in that we don't need to use fs since we will not be doing any file reading. What I wanted you to focus on is having an example of how to structure the definitions
+3. No do not build on top of the concept. Its just an example
+
+Boomer Baker
+@Anuja Lamahewa Here are some adjustments after going through the two videos above. Here is a video explanation: https://www.loom.com/share/004c589793904197a890f26322842e0d?sid=631a2efa-bbc1-4c06-96b9-652adff80003 and below is written feedback
+1. Stick with your implementation since it is runnable. The example from Justin P, I just wanted you to focus on the example of the definition file and how to structure it
+2. Go ahead and delete the test files for now. We will decide how to run those later
+3. Within the cashflow folder put a number at the start of each folder just to keep things organized like how it is displayed here: http://tinyurl.com/yocegnl3 as opposed to it being organized based on the
+4. Use an example JSON object for what would be returned from DocEasy as opposed to hard coding each value
+
+Anuja Lamahewa
+@Boomer Baker @Chamika Abeygunarathna
+
+1. Stick with your implementation since it is runnable. The example from Justin P, I just wanted you to focus on the example of the definition file and how to structure it
+Got it.
+2. Go ahead and delete the test files for now. We will decide how to run those later
+Done.
+3. Within the cashflow folder put a number at the start of each folder just to keep things organized like how it is displayed here: http://tinyurl.com/yocegnl3 as opposed to it being organized based on the
+Done.
+I updated your excalidraw.
+Another copy is attached here.
+4. Use an example JSON object for what would be returned from DocEasy as opposed to hard coding each value.
+In Progress... I'll update you when I have a runnable code.
+
+
