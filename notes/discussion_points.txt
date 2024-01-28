@@ -1,0 +1,5 @@
+3. Please do the following for the Unisyn project today
+a. Here is a video going over the architectural decisions we made today: https://www.loom.com/share/78b0ed14ad284c5085b6f100bc6a75c3?sid=39bf2329-45fa-45cc-8ab3-ddc9fa5ebb20 and here is the Excalidraw link: https://link.excalidraw.com/l/uBtKLXMlH/8NS711ayuIR
+b. Attached is the folder structure. Please focus on just the part that contains the code for the cashflow API. Help me create the algorithm needed for the Cashflow API as discussed in the video
+c. Help me think through if it would make sense to limit the workers or let them scale infinitely
+d. Also once this is done we need to start scoping out Swagger files so the frontend can go ahead and integrate with the API as Justin has mentioned. focus on the above first
