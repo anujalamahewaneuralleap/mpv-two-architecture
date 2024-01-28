@@ -1,39 +1,44 @@
 import { ApolloServer, gql } from "apollo-server";
 
-// Update your type definitions to include an additional field
+// create type definition
 const typeDefs = gql`
   type Query {
-    period_ordinary_income: String
-    period_other_income: String
-    period_gross_income: String
-    period_operating_expences: String
-    period_total_other_income: String
-    period_total_other_expences: String
+    period_1_cogs_total: String
+    period_1_gross_income: String
+    period_1_gross_revenue: String
+    period_1_name: String
+    period_1_net_income: String
+    period_1_net_ordinary_income: String
+    period_1_net_other_income: String
+    period_1_operating_expenses_depreciation: String
+    period_1_operating_expenses_interest: String
+    period_1_operating_expenses_taxes_licenses: String
+    period_1_operating_expenses_total: String
+    period_1_other_income_interest_income: String
+    period_1_other_income_total: String
+    period_1_net_other_expenses: String
   }
 `;
 
-// Update your resolvers to handle the new fields
+// we need another function to call doceasy and
 const resolvers = {
   Query: {
-    period_ordinary_income: () => "40", // doceasy shoud send
-    period_other_income: () => "10", // doceasy shoud send
-
-    period_gross_income: () => "50", // doceasy shoud send
-    period_operating_expences: () => "10", // doceasy shoud send
-
-    period_total_other_income: () => "20", // doceasy shoud send
-    period_total_other_expences: () => "10" // doceasy shoud send
+    period_1_cogs_total: () => "2015.25",
+    period_1_gross_income: () => "496225.22",
+    period_1_gross_revenue: () => "498240.0",
+    period_1_name: () => "January - December 2021",
+    period_1_net_income: () => "-245060.98",
+    period_1_net_ordinary_income: () => "-246687.3",
+    period_1_net_other_income: () => "1626.32",
+    period_1_operating_expenses_depreciation: () => "190078.38",
+    period_1_operating_expenses_interest: () => "3559.88",
+    period_1_operating_expenses_taxes_licenses: () => "10192.75",
+    period_1_operating_expenses_total: () => "742912.0",
+    period_1_other_income_interest_income: () => "1626.32",
+    period_1_other_income_total: () => "1626.32",
+    period_1_net_other_expenses: () => "0"
   },
 };
-
-/*
-Calculation
-
-Income = Ordinary Income − Other Income
-Ordinary Income = Gross Income − Operating Expenses
-Other Income = Total Other Income − Total Other Expenses
-
-*/
 
 // Create an Apollo Server instance
 const server = new ApolloServer({ typeDefs, resolvers });
