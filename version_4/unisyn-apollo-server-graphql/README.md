@@ -1,9 +1,7 @@
-npm install apollo-server graphql axios
+# How to run
 
-npm install --save-dev typescript @types/node ts-node
+npm install apollo-server axios graphql typescript ts-node@10.9.2
 
-tsc
-
-npx ts-node src/index.ts
+npm start
 
 http://localhost:4000/
