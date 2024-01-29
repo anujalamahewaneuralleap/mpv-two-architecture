@@ -7,5 +7,3 @@ export const calculatenetOtherIncome = (otherIncome: number, otherExpences: numb
     let netOtherIncome = otherIncome - otherExpences;
     return netOtherIncome;
   };
-  
-

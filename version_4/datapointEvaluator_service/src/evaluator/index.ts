@@ -1,15 +1,12 @@
-import app from './app';
-import { ApolloServer } from 'apollo-server';
+import app from "./app";
+import { ApolloServer } from "apollo-server";
 
 export const handler = (req: any, res: any) => {
-  app.ready(err => {
+  app.ready((err) => {
     if (err) throw err;
-    app.server.emit('request', req, res);
+    app.server.emit("request", req, res);
   });
 };
-
-
-
 
 const start = async () => {
   try {

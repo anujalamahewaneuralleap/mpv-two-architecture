@@ -5,7 +5,6 @@ import axios from "axios";
 import { calculateNetIncome } from "./03_netIncome/netIncomeService";
 import { calculatenetOtherIncome } from "./13_netOtherIncome/netOtherIncomeService";
 import { calculateOrdinaryIncome } from "./07_netOrdinaryIncome/netOrdinaryIncomeService";
-import { json } from "stream/consumers";
 
 let result = 0; // this is the final calculated value
 
@@ -48,7 +47,9 @@ export const cashflowResolver = async (
       console.log("Response from Server:", response.data.data);
 
       // so we have the doceasy json response.
-      const doceasyResponseJson = JSON.parse(response.data.data.doceasy_json_string);
+      const doceasyResponseJson = JSON.parse(
+        response.data.data.doceasy_json_string
+      );
 
       /*
       let's store individual values to make the logic simple
@@ -56,19 +57,24 @@ export const cashflowResolver = async (
       we get the values from doceasy but to test out our current logic
       we will do the calculation
       */
-      let period_ordinary_income= doceasyResponseJson.data.period_1_net_ordinary_income[0];
+      let period_ordinary_income =
+        doceasyResponseJson.data.period_1_net_ordinary_income[0];
 
-      let period_other_income= doceasyResponseJson.data.period_1_other_income_total[0];
+      let period_other_income =
+        doceasyResponseJson.data.period_1_other_income_total[0];
 
       //
-      let period_gross_income= doceasyResponseJson.data.period_1_gross_income[0];
+      let period_gross_income =
+        doceasyResponseJson.data.period_1_gross_income[0];
 
-      let period_operating_expences= doceasyResponseJson.data.period_1_operating_expenses_total[0];
+      let period_operating_expences =
+        doceasyResponseJson.data.period_1_operating_expenses_total[0];
 
-      let period_total_other_income= doceasyResponseJson.data.period_1_net_other_income[0];
+      let period_total_other_income =
+        doceasyResponseJson.data.period_1_net_other_income[0];
 
-      let period_total_other_expences= doceasyResponseJson.data.period_1_net_other_expenses[0];
-     
+      let period_total_other_expences =
+        doceasyResponseJson.data.period_1_net_other_expenses[0];
 
       /*
       Calculation is as follow:
@@ -80,11 +86,20 @@ export const cashflowResolver = async (
       */
 
       // first calculate Other Income
-      let otherIncome = calculatenetOtherIncome(Number(period_total_other_income), Number(period_total_other_expences));
+      let otherIncome = calculatenetOtherIncome(
+        Number(period_total_other_income),
+        Number(period_total_other_expences)
+      );
       // then Ordinary Income
-      let ordinaryIncome = calculateOrdinaryIncome(Number(period_gross_income), Number(period_operating_expences));
+      let ordinaryIncome = calculateOrdinaryIncome(
+        Number(period_gross_income),
+        Number(period_operating_expences)
+      );
       // finally we can calcuate the total by the above 2 values
-      let netIncome = calculateNetIncome(Number(ordinaryIncome),Number(otherIncome));
+      let netIncome = calculateNetIncome(
+        Number(ordinaryIncome),
+        Number(otherIncome)
+      );
 
       // console log for debugging
       console.log("Net Other Income:", otherIncome);

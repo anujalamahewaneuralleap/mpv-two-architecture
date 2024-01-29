@@ -7,4 +7,3 @@ export const calculateNetIncome = (ordinaryIncome: number, netOtherIncome: numbe
   let netIncome = ordinaryIncome + netOtherIncome;
   return netIncome;
 };
-

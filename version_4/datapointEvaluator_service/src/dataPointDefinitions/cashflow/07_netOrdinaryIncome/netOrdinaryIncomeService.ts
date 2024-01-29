@@ -7,5 +7,3 @@ export const calculateOrdinaryIncome = (grossIncome: number, operatingExpences: 
     let ordinaryIncome = grossIncome - operatingExpences;
     return ordinaryIncome;
   };
-  
-
