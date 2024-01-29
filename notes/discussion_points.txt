@@ -158,4 +158,9 @@ Another copy is attached here.
 4. Use an example JSON object for what would be returned from DocEasy as opposed to hard coding each value.
 In Progress... I'll update you when I have a runnable code.
 
+Boomer Baker
+@Anuja Lamahewa Thank you for the progress I think this is looking better and better. Below is some feedback:
+1. I think the cashflow API should work similarly to how the DocEasy API works. The only difference is we pull raw fields using DocEasy and then for the Cashflow API we do all calculations necessary. With this in mind I think we need to add the ability to query for period and also include things like the userID as well in the request
+2. I see how you are trying to decide which calculations to perform in order. I think what would be better is to create the business logic for each formula first and then from there decide how to structure doing asynchronous calls so calculations are attempted to be performed in parallel
+3. I realized while in Justin P’a sample files they have path and fs packages being used. Their purpose isn’t to read a raw file like DocEasy does but instead a definition file
 

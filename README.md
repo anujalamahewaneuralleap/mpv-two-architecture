@@ -2,7 +2,7 @@
 
 ## Version 1
 
-* Communication betweek Appolo server and node js fastify
+* communication betweek Appolo server and node js  fastify
 
 ## Version 2
 
@@ -12,3 +12,7 @@
 
 * removed all test files
 * JSON object is now passed
+
+## Version 4
+
+* implementaiton of a definition file
