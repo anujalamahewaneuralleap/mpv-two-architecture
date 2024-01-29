@@ -1,5 +1,5 @@
-import { _MathOperationInput, _MathOperationResult } from "../cashflowDefinitionInterfaceService";
-import { _calculateNetOtherIncome } from "../cashflowDefinitionService";
+import { _MathOperationInput, _MathOperationResult } from "../flowDefinitionInterfaceService";
+import { _calculateNetOtherIncome } from "../flowDefinitionService";
 
 // Function to calculate the area of a rectangle
 export function calculateOrdinaryIncome(grossIncome: number, operatingExpences: number): _MathOperationResult {

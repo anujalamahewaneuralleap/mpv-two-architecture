@@ -1,4 +1,4 @@
-import { _MathOperationInput, _MathOperationResult } from "./cashflowDefinitionInterfaceService";
+import { _MathOperationInput, _MathOperationResult } from "./flowDefinitionInterfaceService";
 
 // calculateNetIncome
 export function _calculateNetIncome(input: _MathOperationInput): _MathOperationResult {
