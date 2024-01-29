@@ -164,3 +164,49 @@ Boomer Baker
 2. I see how you are trying to decide which calculations to perform in order. I think what would be better is to create the business logic for each formula first and then from there decide how to structure doing asynchronous calls so calculations are attempted to be performed in parallel
 3. I realized while in Justin P’a sample files they have path and fs packages being used. Their purpose isn’t to read a raw file like DocEasy does but instead a definition file
 
+Anuja Lamahewa
+@Boomer Baker
+1. I think the cashflow API should work similarly to how the DocEasy API works. The only difference is we pull raw fields using DocEasy and then for the Cashflow API we do all calculations necessary. With this in mind I think we need to add the ability to query for period and also include things like the userID as well in the request
+I added a JSON object with the period and userID. Here's my review:
+https://www.loom.com/share/a2e3af6e771e4d119949b3b7e736dd5b?sid=5c2b8b7e-6936-44cb-8435-777759eb2fe0
+
+Boomer Baker
+@Anuja Lamahewa
+ The Main feedback here is the following
+1. Don't worry about implementing DocEasy right now as Mohammed and his team are currently updating that
+2. I see the values are in arrays for the example of what we would get back from DocCeasy. Have it just be a clean object for now
+3. I think the cashflow resolver should look a bit cleaner and to be ordered properly which you brought up getting this done next
+
+Anuja Lamahewa
+@Boomer Baker
+ regarding the definition file:
+https://www.loom.com/share/fc7010d099904f9d82e8609ac838912b?sid=04b46884-5f9e-46f3-aa55-44954af21805 (edited) 
+
+Boomer Baker
+@Anuja Lamahewa
+ I don't quite follow the thinking here. I would prefer a consistent design for the way we define each definition file. I don't think all of them should be designed in one file
+
+
+Anuja Lamahewa
+@Boomer Baker
+ I implemented a definition file:
+https://www.loom.com/share/d8b7eb6d783e4d5093ad1b062e62922c?sid=f57001e2-7d74-41cc-924f-0b847b17eb29
+
+Boomer Baker
+@Anuja Lamahewa
+ I think it would make sense to do the following
+1. I like how you have the file that uses a consistent design for how each calculation pattern should work. Take two values and return 1, etc
+2. I think it would be best to move the definition interface service and the definition service specifically into the cashflow folder. I would like to see how all of this could be a bit more organized
+3. I think this is getting better and better
+4. Have ChatGPT help you with how to use parallelization. Essentials with node you would use a Promise.all function
+
+Boomer Baker
+@Anuja Lamahewa
+ Can you make sure to give me a complete working draft by the end of today with the following implemented?
+1. Finish adding all formulas/fields from the cashflow virtual model
+2. Simply the JSON object example from DocEasy. Just created a separate JSON file if it is easier
+3. Implement parallelization
+4. Finish organizing how all the logic for the definitions file will work. Keep the example that Justin P sent in mind. We do need to define a few other things such as sources in addition to the fields that are needed to do a calculation
+
+
+
