@@ -1,6 +1,6 @@
 # How to run
 
-npm install apollo-server axios graphql typescript
+npm install apollo-server @types/axios graphql typescript
 
 npm start
 
