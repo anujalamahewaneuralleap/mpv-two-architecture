@@ -3,13 +3,13 @@ This file will get values from the Resolver and do the necessary calculations an
 This is where the algorithm lives
 */
 
-import { MathOperationInput, MathOperationResult } from '../CashflowDefinitionInterfaceService';
-import {calculateNetOtherIncome  } from '../CashflowDefinitionService';
+import { _MathOperationInput, _MathOperationResult } from '../cashflowDefinitionInterfaceService';
+import {_calculateNetOtherIncome  } from '../cashflowDefinitionService';
 
 // Function to calculate the area of a rectangle
-export function _calculateOrdinaryIncome(grossIncome: number, operatingExpences: number): MathOperationResult {
-    const input: MathOperationInput = { operand1: grossIncome, operand2: operatingExpences };
-    return calculateNetOtherIncome(input);
+export function calculateOrdinaryIncome(grossIncome: number, operatingExpences: number): _MathOperationResult {
+    const input: _MathOperationInput = { operand1: grossIncome, operand2: operatingExpences };
+    return _calculateNetOtherIncome(input);
 }
 
 // export const calculateOrdinaryIncome = (grossIncome: number, operatingExpences: number): number => {

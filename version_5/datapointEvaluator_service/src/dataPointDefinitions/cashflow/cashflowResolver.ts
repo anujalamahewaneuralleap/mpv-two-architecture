@@ -2,10 +2,10 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import axios from "axios";
 
 // imports for calculations
-import { _calculateNetIncome } from "./03_netIncome/netIncomeService";
-import { _calculateNetOtherIncome } from "./13_netOtherIncome/netOtherIncomeService";
-import { _calculateOrdinaryIncome } from "./07_netOrdinaryIncome/netOrdinaryIncomeService";
-import { MathOperationInput, MathOperationResult } from './CashflowDefinitionInterfaceService';
+import { calculateNetIncome } from "./03_netIncome/netIncomeService";
+import { calculateNetOtherIncome } from "./13_netOtherIncome/netOtherIncomeService";
+import { calculateOrdinaryIncome } from "./07_netOrdinaryIncome/netOrdinaryIncomeService";
+import { _MathOperationInput, _MathOperationResult } from './cashflowDefinitionInterfaceService';
 
 let result = 0; // this is the final calculated value
 
@@ -87,18 +87,18 @@ export const cashflowResolver = async (
       */
 
       // first calculate Other Income
-      let otherIncome: MathOperationResult = _calculateNetOtherIncome(
+      let otherIncome: _MathOperationResult = calculateNetOtherIncome(
         Number(period_total_other_income),
         Number(period_total_other_expences)
       );
 
       // then Ordinary Income
-      let ordinaryIncome: MathOperationResult = _calculateOrdinaryIncome(
+      let ordinaryIncome: _MathOperationResult = calculateOrdinaryIncome(
         Number(period_gross_income),
         Number(period_operating_expences)
       );
       // finally we can calcuate the total by the above 2 values
-      let netIncome = _calculateNetIncome(
+      let netIncome = calculateNetIncome(
         Number(ordinaryIncome.result),
         Number(otherIncome.result)
       );
