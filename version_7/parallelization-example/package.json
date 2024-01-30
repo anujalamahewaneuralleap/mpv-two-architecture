@@ -1,0 +1,16 @@
+{
+    "name": "parallel-example",
+    "version": "1.0.0",
+    "description": "Example of executing tasks in parallel using TypeScript",
+    "main": "index.js",
+    "scripts": {
+      "start": "ts-node index.ts"
+    },
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+      "ts-node": "^10.9.2",
+      "typescript": "^4.5.5"
+    }
+  }
+  

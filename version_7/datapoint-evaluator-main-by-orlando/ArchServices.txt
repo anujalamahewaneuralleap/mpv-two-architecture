@@ -1,0 +1,39 @@
+root/
+│
+├── dataPointEvaluator-service/        # Standalone service for Data Point Evaluation
+│   ├── src/
+│   │   ├── evaluator/
+│   │   │   ├── index.js               # Evaluator logic
+│   │   │   └── evaluatorUtils.js      # Utility functions for the evaluator
+│   │   ├── dataPointDefinitions/      # Data Point Definitions
+│   │   │   ├── cashflow/
+│   │   │   │   ├── netOrdinaryIncome.js
+│   │   │   │   ├── grossRevenue.js
+│   │   │   │   └── operatingExpenses.js
+│   │   │   ├── debt/
+│   │   │   │   ├── DSCR.js
+│   │   │   │   └── paymentsTotal.js
+│   │   │   └── ...                    # Other data point definitions
+│   │   ├
+│   │   └── ...                        # Other necessary files for the service
+│   ├── package.json
+│   └── ...
+│
+├── cashflow-service/                  # Microservice for cashflow-related calculations
+│   ├── src/
+│   │   ├── utils/
+│   │   ├── app.js
+│   │   └── server.js
+│   ├── package.json
+│   └── ...
+│
+├── debt-service/                      # Microservice for debt-related calculations
+│   ├── src/
+            index.  // import dataPointEvaluator from unisyn
+│   │   ├── utils/
+│   │   ├── app.js
+│   │   └── server.js
+│   ├── package.json
+│   └── ...
+│
+└── ...                                # Other microservices or shared components
