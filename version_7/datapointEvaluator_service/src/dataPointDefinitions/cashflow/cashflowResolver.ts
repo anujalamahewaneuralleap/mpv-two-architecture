@@ -21,7 +21,6 @@ import { calculateExpensesDepriciation } from "./18_expensesDeprecaiation/expens
 import {calculateExpensesTaxesLicenses } from "./20_expensesTaxesLicenses/expensesTaxesLicensesService";
 import { calculateExpensesAmortization } from "./21_expensesAmortization/expensesAmortizationService";
 
-
 function asyncCalculateNetOtherIncome(period_total_other_income: number, period_total_other_expences: number): Promise<number> {
 	return new Promise((resolve) => {
 		setTimeout(() => {
@@ -156,6 +155,8 @@ export const cashflowResolver = async (request: FastifyRequest<{ Params: "" }>, 
 			period_cogs_total,
 			document_name
 		);
+
+
 
 		reply.code(200).send({
 			message: result,
