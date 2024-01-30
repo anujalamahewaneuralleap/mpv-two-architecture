@@ -29,6 +29,14 @@ function asyncCalculateNetOtherIncome(period_total_other_income: number, period_
 	});
 }
 
+function asyncCalculateOtherExpenses(expensesDepriciation: number, expensesInterest: number, expensesTaxesLicenses: number, expensesAmortization: number): Promise<number> {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(calculateOtherExpenses(Number(expensesDepriciation), Number(expensesInterest), Number(expensesTaxesLicenses), Number(expensesAmortization)));
+		}, 1000); // Simulating a delay of 1 seconds for the demo
+	});
+}
+
 function asyncCalculateOrdinaryIncome(period_gross_income: number, period_operating_expences: number): Promise<number> {
 	return new Promise((resolve) => {
 		setTimeout(() => {
@@ -63,30 +71,41 @@ async function executeParallelTasks(
 	period_other_income: number,
 	period_gross_revenue: number,
 	period_cogs_total: number,
-	document_name: string
+	document_name: string,
+	expenses_depriciation: number,
+	expenses_interest: number,
+	expenses_tax_licenses: number,
+	expenses_amortization: number
 ): Promise<any> {
 	try {
 		// Execute multiple asynchronous tasks concurrently
+		// expensesInterest: number, expensesTaxesLicenses
 		const [
-			NetOtherIncomeAnswer, 
+			otherExpensesAnswer,
+			netOtherIncomeAnswer, 
 			ordinaryIncomeAnswer, 
 			netIncomeAnswer, 
 			grossIncomeAnswer,
 			documentNameAnswer,
 			grossRevenueAnswer
 		] = await Promise.all([
+			asyncCalculateOtherExpenses(expenses_depriciation, expenses_interest, expenses_tax_licenses, expenses_amortization),
 			asyncCalculateNetOtherIncome(period_total_other_income, period_total_other_expences),
 			asyncCalculateOrdinaryIncome(period_gross_income, period_operating_expences),
 			asyncCalculateNetIncome(period_ordinary_income, period_other_income),
 			asyncCalculateGrossIncome(period_gross_revenue, period_cogs_total),
+
 			calculateName(document_name), // direct call
 			calculateGrossRevenue(period_gross_revenue), // direct call
 			calculateCogs(period_cogs_total) // direct call
 		]);
 
+		//function asyncCalculateOtherExpenses(expensesDepriciation: number, expensesInterest: number, expensesTaxesLicenses: number, expensesAmortization: number): Promise<number> {
+
+
 		// Create JSON object
 		const jsonObject = {
-			"net_other_income": NetOtherIncomeAnswer,
+			"net_other_income": netOtherIncomeAnswer,
 			"ordinary_income": ordinaryIncomeAnswer,
 			"net_income": netIncomeAnswer,
 			"gross_income": grossIncomeAnswer,
@@ -118,7 +137,10 @@ const doceasy_json_object = {
 			"period_1_operating_expenses_total": [742912.0],
 			"period_1_other_income_interest_income": [1626.32],
 			"period_1_other_income_total": [1626.32],
-			"period_1_net_other_expenses": [5000]
+			"period_1_net_other_expenses": [5000], // dummy data
+			"period_1_operating_expenses_depriciation": [100], // dummy data
+			"period_1_operating_expenses_amortization": [100] // dummy data
+
 		},
 		"document_date": "2021",
 		"document_name": "user_document/wade/profit & loss/EMT Holdings - PNL 2021.pdf",
@@ -142,6 +164,10 @@ export const cashflowResolver = async (request: FastifyRequest<{ Params: "" }>, 
 		let period_gross_revenue = doceasy_json_object.data.period_1_gross_revenue[0];
 		let period_cogs_total = doceasy_json_object.data.period_1_cogs_total[0];
 		let document_name = doceasy_json_object.document_name;
+		let expenses_depriciation = doceasy_json_object.data.period_1_operating_expenses_depriciation[0];
+		let expenses_interest = doceasy_json_object.data.period_1_operating_expenses_interest[0];
+		let expenses_tax_licenses = doceasy_json_object.data.period_1_operating_expenses_taxes_licenses[0];		
+		let expenses_amortization = doceasy_json_object.data.period_1_operating_expenses_amortization[0];
 
 		// Wait for the result of executeParallelTasks
 		result = await executeParallelTasks(
@@ -153,7 +179,11 @@ export const cashflowResolver = async (request: FastifyRequest<{ Params: "" }>, 
 			period_other_income, 
 			period_gross_revenue, 
 			period_cogs_total,
-			document_name
+			document_name,
+			expenses_depriciation,
+			expenses_interest,
+			expenses_tax_licenses,
+			expenses_amortization
 		);
 
 
