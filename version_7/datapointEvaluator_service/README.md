@@ -4,6 +4,8 @@ npm install apollo-server axios graphql typescript axios
 
 npx ts-node src/evaluator/index.ts npm start
 
-http://localhost:8080/
+GraphQL:
+http://localhost:4000/
 
+Node:
 http://localhost:8080/modules/cashflow/
