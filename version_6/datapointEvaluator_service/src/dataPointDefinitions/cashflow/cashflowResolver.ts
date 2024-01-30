@@ -72,18 +72,6 @@ export const cashflowResolver = async (request: FastifyRequest, reply: FastifyRe
 			we have to go in order
 			*/
 
-			// // first calculate Other Income
-			// let otherIncome: _MathOperationResult = calculateNetOtherIncome(Number(period_total_other_income), Number(period_total_other_expences));
-			// // then Ordinary Income
-			// let ordinaryIncome: _MathOperationResult = calculateOrdinaryIncome(Number(period_gross_income), Number(period_operating_expences));
-			// // finally we can calcuate the total by the above 2 values
-			// let netIncome = calculateNetIncome(Number(ordinaryIncome.result), Number(otherIncome.result));
-
-			// // console log for debugging
-			// console.log("Net Other Income:", otherIncome.result);
-			// console.log("Net Ordinary Income:", ordinaryIncome.result);
-			// console.log("Net Income:", netIncome.result);
-
 			// result = netIncome.result; // setting it to result
 
 			executeParallelTasks
