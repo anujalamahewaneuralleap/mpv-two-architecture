@@ -20,3 +20,7 @@
 ## Version 5
 
 * implementaiton of a definition file
+
+## Version 6
+
+* Implementation of parrallel tasks
