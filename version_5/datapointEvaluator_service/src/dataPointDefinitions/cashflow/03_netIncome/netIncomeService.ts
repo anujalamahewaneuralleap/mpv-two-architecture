@@ -3,8 +3,8 @@ This file will get values from the Resolver and do the necessary calculations an
 This is where the algorithm lives
 */
 
-import { _MathOperationInput, _MathOperationResult } from "../flowDefinitionInterfaceService";
-import { _calculateNetOtherIncome } from "../flowDefinitionService";
+import { _MathOperationInput, _MathOperationResult } from "../cashflowDefinitionInterfaceService";
+import { _calculateNetOtherIncome } from "../cashflowDefinitionService";
 
 // Function to calculate the area of a rectangle
 export function calculateNetIncome(ordinaryIncome: number, netOtherIncome: number): _MathOperationResult {

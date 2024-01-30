@@ -5,7 +5,7 @@ import axios from "axios";
 import { calculateNetIncome } from "./03_netIncome/netIncomeService";
 import { calculateNetOtherIncome } from "./13_netOtherIncome/netOtherIncomeService";
 import { calculateOrdinaryIncome } from "./07_netOrdinaryIncome/netOrdinaryIncomeService";
-import { _MathOperationInput, _MathOperationResult } from "./flowDefinitionInterfaceService";
+import { _MathOperationInput, _MathOperationResult } from "./cashflowDefinitionInterfaceService";
 
 let result = 0; // this is the final calculated value
 
