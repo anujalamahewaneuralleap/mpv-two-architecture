@@ -1,37 +1,169 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import axios from "axios";
-
-// imports for calculations
+import { calculatePeriod } from "./01_period/periodService"
+import { calculateName} from "./02_name/nameService"
 import { calculateNetIncome } from "./03_netIncome/netIncomeService";
-import { calculateNetOtherIncome } from "./13_netOtherIncome/netOtherIncomeService";
+import { calculateGrossIncome } from "./04_grossIncome/grossIncomeService";
+import { calculateGrossRevenue } from "./05_grossRevenue/grossRevenueService"
+import { calculateCogs } from "./06_cogs/cogsService";
 import { calculateOrdinaryIncome } from "./07_netOrdinaryIncome/netOrdinaryIncomeService";
-import { _MathOperationInput, _MathOperationResult } from "./cashflowDefinitionInterfaceService";
-import { executeParallelTasks } from "./parallelTaskService";
+import { calculateOperatingExpenses } from "./08_operatingExpenses/operatingExpensesService";
+import { calculateExpensesDescription } from "./09_expensesDescription/expensesDescriptionService";
+import { calculateExpensesInterest} from "./10_expensesInterest/expensesInterestService"
+import { calculateExpensesLicenses } from "./11_expensesTaxesLicenses/expensesTaxesLicensesService"
+import { calculateExpensesOther } from "./12_expensesOther/expensesOtherService"
+import { calculateNetOtherIncome } from "./13_netOtherIncome/netOtherIncomeService";
 
-let result = 0; // this is the final calculated value
+
+
+function asyncCalculateNetOtherIncome(period_total_other_income: number, period_total_other_expences: number): Promise<number> {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(calculateNetOtherIncome(Number(period_total_other_income), Number(period_total_other_expences)));
+		}, 3000); // Simulating a delay of 3 seconds for the demo
+	});
+}
+
+function asyncCalculateOrdinaryIncome(period_gross_income: number, period_operating_expences: number): Promise<number> {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(calculateOrdinaryIncome(Number(period_gross_income), Number(period_operating_expences)));
+		}, 5000); // Simulating a delay of 5 seconds for the demo
+	});
+}
+
+function asyncCalculateNetIncome(period_ordinary_income: number, period_other_income: number): Promise<number> {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(calculateNetIncome(Number(period_ordinary_income), Number(period_other_income)));
+		}, 7000); // Simulating a delay of 2 seconds for the demo
+	});
+}
+
+function asyncCalculateGrossIncome(period_gross_revenue: number, period_cogs_total: number): Promise<number> {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(calculateGrossIncome(Number(period_gross_revenue), Number(period_cogs_total)));
+		}, 3000); // Simulating a delay of 3 seconds for the demo
+	});
+}
+
+// Example usage of Promise.all() to execute tasks concurrently
+async function executeParallelTasks(
+	period_total_other_income: number,
+	period_total_other_expences: number,
+	period_gross_income: number,
+	period_operating_expences: number,
+	period_ordinary_income: number,
+	period_other_income: number,
+	period_gross_revenue: number,
+	period_cogs_total: number,
+	document_name: string
+): Promise<any> {
+	try {
+		// Execute multiple asynchronous tasks concurrently
+		const [
+			NetOtherIncomeAnswer, 
+			ordinaryIncomeAnswer, 
+			netIncomeAnswer, 
+			grossIncomeAnswer,
+			documentNameAnswer,
+			grossRevenueAnswer
+		] = await Promise.all([
+			asyncCalculateNetOtherIncome(period_total_other_income, period_total_other_expences),
+			asyncCalculateOrdinaryIncome(period_gross_income, period_operating_expences),
+			asyncCalculateNetIncome(period_ordinary_income, period_other_income),
+			asyncCalculateGrossIncome(period_gross_revenue, period_cogs_total),
+			calculateName(document_name), // direct call
+			calculateGrossRevenue(period_gross_revenue), // direct call
+			calculateCogs(period_cogs_total) // direct call
+		]);
+
+		// Create JSON object
+		const jsonObject = {
+			"net_other_income": NetOtherIncomeAnswer,
+			"ordinary_income": ordinaryIncomeAnswer,
+			"net_income": netIncomeAnswer,
+			"gross_income": grossIncomeAnswer,
+			"document_name": documentNameAnswer,
+			"gross_revenue": grossRevenueAnswer
+		};
+
+		console.log(jsonObject);
+		return jsonObject;
+	} catch (error) {
+		console.error("Error occurred:", error);
+		throw error;
+	}
+}
+
+// we call doceasy REST API and get the following result:
+const doceasy_json_object = {
+		"data": {
+			"period_1_cogs_total": [2015.25],
+			"period_1_gross_income": [496225.22],
+			"period_1_gross_revenue": [498240.0],
+			"period_1_name": ["January - December 2021"],
+			"period_1_net_income": [-245060.98],
+			"period_1_net_ordinary_income": [-246687.3],
+			"period_1_net_other_income": [1626.32],
+			"period_1_operating_expenses_depreciation": [190078.38],
+			"period_1_operating_expenses_interest": [3559.88],
+			"period_1_operating_expenses_taxes_licenses": [10192.75],
+			"period_1_operating_expenses_total": [742912.0],
+			"period_1_other_income_interest_income": [1626.32],
+			"period_1_other_income_total": [1626.32],
+			"period_1_net_other_expenses": [5000]
+		},
+		"document_date": "2021",
+		"document_name": "user_document/wade/profit & loss/EMT Holdings - PNL 2021.pdf",
+		"document_parsed_datetime": "Thu, 11 Jan 2024 15:04:21 GMT",
+		"document_type": "profit_loss",
+		"document_update_datetime": "Thu, 11 Jan 2024 18:39:36 GMT",
+		"document_upload_datetime": "Thu, 11 Jan 2024 15:04:21 GMT",
+		"userID": "3nt6028h98cng"
+};
+
+export const cashflowResolver = async (request: FastifyRequest<{ Params: "" }>, reply: FastifyReply): Promise<void> => {
+	try {
+		let result;
+
+		let period_ordinary_income = doceasy_json_object.data.period_1_net_ordinary_income[0];
+		let period_other_income = doceasy_json_object.data.period_1_other_income_total[0];
+		let period_gross_income = doceasy_json_object.data.period_1_gross_income[0];
+		let period_operating_expences = doceasy_json_object.data.period_1_operating_expenses_total[0];
+		let period_total_other_income = doceasy_json_object.data.period_1_net_other_income[0];
+		let period_total_other_expences = doceasy_json_object.data.period_1_net_other_expenses[0];
+		let period_gross_revenue = doceasy_json_object.data.period_1_gross_revenue[0];
+		let period_cogs_total = doceasy_json_object.data.period_1_cogs_total[0];
+		let document_name = doceasy_json_object.document_name;
+
+		// Wait for the result of executeParallelTasks
+		result = await executeParallelTasks(
+			period_total_other_income, 
+			period_total_other_expences, 
+			period_gross_income, 
+			period_operating_expences, 
+			period_ordinary_income, 
+			period_other_income, 
+			period_gross_revenue, 
+			period_cogs_total,
+			document_name
+		);
+
+		reply.code(200).send({
+			message: result,
+		});
+	} catch (error) {
+		console.error("Error fetching data:", error);
+		reply.code(500).send({ status: "error", message: "Internal Server Error" });
+	}
+};
 
 /*
-let's construct the doceasy API
-
-https://unisyn-doceasy-4nscd0jn.ue.gateway.dev/dataretriever/api/v1/search_entities?
-
-user_id=3nt6028h98cng&
-doc_type=profit_loss&
-year=2021
-
-with that, let's write the querey:
-
-authentication_token=3nt6028h98cng
-doc_type=profit_loss
-year=2021
-
-Great! let's pass it and get values!
-*/
-
 export const cashflowResolver = async (request: FastifyRequest, reply: FastifyReply) => {
 	try {
 		const response = await axios.post("http://localhost:4000", {
-			query: `
+		query: `
           query {
             authentication_token,
             document_type,
@@ -48,41 +180,25 @@ export const cashflowResolver = async (request: FastifyRequest, reply: FastifyRe
 			// so we have the doceasy json response.
 			const doceasyResponseJson = JSON.parse(response.data.data.doceasy_json_string);
 
-			/*
-			let's store individual values to make the logic simple
-			the first 2 period_ordinary_income, period_other_income
-			we get the values from doceasy but to test out our current logic
-			we will do the calculation
-			*/
 			let period_ordinary_income = doceasyResponseJson.data.period_1_net_ordinary_income[0];
 			let period_other_income = doceasyResponseJson.data.period_1_other_income_total[0];
-
-			//
 			let period_gross_income = doceasyResponseJson.data.period_1_gross_income[0];
 			let period_operating_expences = doceasyResponseJson.data.period_1_operating_expenses_total[0];
 			let period_total_other_income = doceasyResponseJson.data.period_1_net_other_income[0];
 			let period_total_other_expences = doceasyResponseJson.data.period_1_net_other_expenses[0];
+			let period_gross_revenue = doceasyResponseJson.data.period_1_gross_revenue[0];
+			let period_cogs_total = doceasyResponseJson.data.period_1_cogs_total[0];
 
-			/*
-			Calculation is as follow:
-			Income = Ordinary Income (period_1_net_ordinary_income) − Other Income (period_1_other_income_total)
-			Ordinary Income = Gross Income (period_1_gross_income) − Operating Expenses (period_1_operating_expenses_total)
-			Other Income = Total Other Income (period_1_net_other_income) − Total Other Expenses (NOT FOUND in doceasy used period_1_net_other_expenses)
-			
-			we have to go in order
-			*/
-
-			// result = netIncome.result; // setting it to result
-
-			executeParallelTasks
-			(
-				period_total_other_income, 
-				period_total_other_expences, 
-				period_gross_income, 
-				period_operating_expences
-			);
-
-			//result = response.data; // this is only for debugging purpose
+			executeParallelTasks(
+					period_total_other_income, 
+					period_total_other_expences, 
+					period_gross_income, 
+					period_operating_expences, 
+					period_ordinary_income, 
+					period_other_income,
+					period_gross_revenue,
+					period_cogs_total
+				);
 		} // end of else
 
 		reply.code(200).send({
@@ -93,3 +209,4 @@ export const cashflowResolver = async (request: FastifyRequest, reply: FastifyRe
 		reply.code(500).send({ status: "error", message: "Internal Server Error" });
 	}
 };
+*/

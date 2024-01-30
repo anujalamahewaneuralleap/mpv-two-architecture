@@ -10,6 +10,8 @@ Apollo server will take them
 
 const doceasy_json_object = {
 	data: {
+		"period_1_cogs_total": [25],
+		"period_1_gross_revenue": [100],
 		"period_1_gross_income": [200],
 		"period_1_net_ordinary_income": [50],
 		"period_1_net_other_income": [100],
