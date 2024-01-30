@@ -1,6 +1,6 @@
-/*
+import { _calculateOtherIncome } from "../cashflowDefinitionService";
 
-other_income.interest
-other_income.other
+export function calculateOtherIncome(incomeOther: number, otherIncomeInterest: number) {
+	return _calculateOtherIncome(incomeOther, otherIncomeInterest);
+}
 
-*/

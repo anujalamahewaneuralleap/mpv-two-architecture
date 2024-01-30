@@ -1,32 +1,28 @@
-import { _MathOperationInput, _MathOperationResult } from "./cashflowDefinitionInterfaceService";
-
 // calculateNetIncome
-export function _calculateNetIncome(input: _MathOperationInput): _MathOperationResult {
-	// result = ordinaryIncome + netOtherIncome;
-	const result = input.operand1 + input.operand2;
-	return { result };
+export function _calculateNetIncome(ordinaryIncome: number, netOtherIncome: number) {
+	return ordinaryIncome + netOtherIncome;
 }
 
 // calculateOrdinaryIncome
-export function _calculateOrdinaryIncome(input: _MathOperationInput): _MathOperationResult {
-	// result = grossIncome - operatingExpences;
-	const result = input.operand1 - input.operand2;
-	return { result };
+export function _calculateOrdinaryIncome(grossIncome: number, operatingExpences: number) {
+	return grossIncome - operatingExpences;
 }
 
 // calculatenetOtherIncome
-export function _calculateNetOtherIncome(input: _MathOperationInput): _MathOperationResult {
-	// result = otherIncome - otherExpences;
-	const result = input.operand1 - input.operand2;
-	return { result };
+export function _calculateNetOtherIncome(grossIncome: number, operatingExpences: number) {
+	return grossIncome - operatingExpences;
 }
 
 // calculateGrossIncome
-export function _calculateGrossIncome(input: _MathOperationInput): _MathOperationResult {
-	// result = grossRevenue - cogs;
-	const result = input.operand1 - input.operand2;
-	return { result };
+export function _calculateGrossIncome(period_gross_revenue: number, period_cogs_total: number) {
+	return period_gross_revenue - period_cogs_total;
 }
+
+//
+export function _calculateOtherIncome(incomeOther: number, otherIncomeInterest: number) {
+	return incomeOther - otherIncomeInterest;
+}
+
 
 /* 
 //------------------------------
