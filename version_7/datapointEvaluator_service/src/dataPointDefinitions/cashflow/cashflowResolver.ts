@@ -25,7 +25,7 @@ function asyncCalculateNetOtherIncome(period_total_other_income: number, period_
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(calculateNetOtherIncome(Number(period_total_other_income), Number(period_total_other_expences)));
-		}, 3000); // Simulating a delay of 3 seconds for the demo
+		}, 500); // Simulating a delay of 3 seconds for the demo
 	});
 }
 
@@ -33,7 +33,7 @@ function asyncCalculateOtherExpenses(expensesDepriciation: number, expensesInter
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(calculateOtherExpenses(Number(expensesDepriciation), Number(expensesInterest), Number(expensesTaxesLicenses), Number(expensesAmortization)));
-		}, 1000); // Simulating a delay of 1 seconds for the demo
+		}, 500); // Simulating a delay of 1 seconds for the demo
 	});
 }
 
@@ -41,7 +41,7 @@ function asyncCalculateOrdinaryIncome(period_gross_income: number, period_operat
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(calculateOrdinaryIncome(Number(period_gross_income), Number(period_operating_expences)));
-		}, 5000); // Simulating a delay of 5 seconds for the demo
+		}, 500); // Simulating a delay of 5 seconds for the demo
 	});
 }
 
@@ -49,7 +49,7 @@ function asyncCalculateNetIncome(period_ordinary_income: number, period_other_in
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(calculateNetIncome(Number(period_ordinary_income), Number(period_other_income)));
-		}, 7000); // Simulating a delay of 2 seconds for the demo
+		}, 500); // Simulating a delay of 2 seconds for the demo
 	});
 }
 
@@ -57,7 +57,7 @@ function asyncCalculateGrossIncome(period_gross_revenue: number, period_cogs_tot
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(calculateGrossIncome(Number(period_gross_revenue), Number(period_cogs_total)));
-		}, 3000); // Simulating a delay of 3 seconds for the demo
+		}, 500); // Simulating a delay of 3 seconds for the demo
 	});
 }
 
@@ -94,7 +94,6 @@ async function executeParallelTasks(
 			asyncCalculateOrdinaryIncome(period_gross_income, period_operating_expences),
 			asyncCalculateNetIncome(period_ordinary_income, period_other_income),
 			asyncCalculateGrossIncome(period_gross_revenue, period_cogs_total),
-
 			calculateName(document_name), // direct call
 			calculateGrossRevenue(period_gross_revenue), // direct call
 			calculateCogs(period_cogs_total) // direct call
