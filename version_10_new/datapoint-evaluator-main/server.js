@@ -9,6 +9,7 @@ const typeDefs = gql`
 
   input DataPointInput {
     name: String!
+    periods: [String!]
     currentPeriod: Boolean
     historicPeriod: Int
   }
