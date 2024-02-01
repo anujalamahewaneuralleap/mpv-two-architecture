@@ -1,21 +1,21 @@
-Data Point Evaluator Service
+# Data Point Evaluator Service
 
-Overview
+## Overview
 This project provides a GraphQL API for evaluating financial data points over specified periods. It's designed to fetch and calculate data points like cogs, grossIncome, and grossRevenue from various sources.
 
 Getting Started
-1. Install Dependencies
 
-npm install
+* Installing Dependencies
 
-2. Start the Server
+`npm install`
 
-npm start
+* Starting the Server
 
+`npm start`
 
-Sample Queries
+## Sample Queries
 
-1. Evaluate a Single Data Point Over Multiple Periods
+* Evaluate a Single Data Point Over Multiple Periods
 
 query {
   evaluateDataPoint(dataPointName: "cogs", periods: ["2022Q1", "2022Q2"]) {
@@ -24,7 +24,7 @@ query {
   }
 }
 
-2. Evaluate Multiple Data Points for a Specific Period
+* Evaluate Multiple Data Points for a Specific Period
 
 query {
   evaluateDataPoints(dataPoints: [
@@ -37,3 +37,23 @@ query {
   }
 }
 
+* Accept currentPeriod and historicPeriods
+
+query {
+  evaluateDataPoints(dataPoints: [
+    { 
+      name: "cogs", 
+      currentPeriod: true,
+      historicPeriod: 3
+    },
+    { 
+      name: "grossRevenue", 
+      currentPeriod: true,
+      historicPeriod: 2
+    }
+  ]) {
+    dataPointName
+    currentPeriod
+    historicPeriod
+  }
+}

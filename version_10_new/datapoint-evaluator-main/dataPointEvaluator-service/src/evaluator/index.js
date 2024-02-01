@@ -1,6 +1,12 @@
 const dataSources = require('../dataSources/dataSources');
 const definitions = require('../dataPointDefinitions');
 
+// Function to calculate periods
+function calculatePeriods(currentPeriod, historicPeriod) {
+  let periods = [];
+  return periods;
+}
+
 //This approach fetches data from multiple sources concurrently, reducing waiting time.
 
 const fetchDataFromSources = async (sources, period) => {
@@ -77,6 +83,13 @@ const evaluateDataPoint = memoize(async (dataPointName, periods) => {
     }
 
     console.log(`Final evaluation results for ${dataPointName}:`, results);
+
+    console.log("++++++++++");
+    calculatePeriods(true, 3);
+    console.log(results);
+    console.log("++++++++++");
+    
+
     return results;
 });
 

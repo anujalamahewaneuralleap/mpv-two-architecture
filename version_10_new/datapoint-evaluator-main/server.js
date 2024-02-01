@@ -3,20 +3,23 @@ const evaluateDataPoint = require('./dataPointEvaluator-service/src/evaluator');
 
 // Type definitions for your schema
 const typeDefs = gql`
-type Query {
-  evaluateDataPoints(dataPoints: [DataPointInput!]!): [DataPointResult]
-}
+  type Query {
+    evaluateDataPoints(dataPoints: [DataPointInput!]!): [DataPointResult]
+  }
 
-input DataPointInput {
-  name: String!
-  periods: [String!]!
-}
+  input DataPointInput {
+    name: String!
+    currentPeriod: Boolean
+    historicPeriod: Int
+  }
 
-type DataPointResult {
-  dataPointName: String
-  period: String
-  value: Float
-}
+  type DataPointResult {
+    dataPointName: String
+    currentPeriod: Boolean
+    historicPeriod: Int
+    period: String # Add a period field if needed
+    value: Float # Add value field if needed
+  }
 `;
 
 
@@ -27,12 +30,25 @@ const resolvers = {
       const results = [];
 
       for (const dataPoint of dataPoints) {
-        for (const period of dataPoint.periods) {
-          const value = await evaluateDataPoint(dataPoint.name, [period]);
+        if (Array.isArray(dataPoint.periods)) { // Check if periods is an array
+          for (const period of dataPoint.periods) {
+            console.log("******************");
+            console.log(dataPoint.name);
+            console.log([period]);
+            console.log("******************");
+            const value = await evaluateDataPoint(dataPoint.name, [period]);
+            results.push({
+              dataPointName: dataPoint.name,
+              period,
+              value: value[period]
+            });
+          }
+        } else {
+          // Handle the case when periods is not an array (e.g., set value to null or handle as needed)
           results.push({
             dataPointName: dataPoint.name,
-            period,
-            value: value[period]
+            period: null, // Set period to null or handle as needed
+            value: null // Set value to null or handle as needed
           });
         }
       }
@@ -41,6 +57,7 @@ const resolvers = {
     }
   }
 };
+
 
 
 // Create an instance of ApolloServer
@@ -60,3 +77,9 @@ server.listen().then(({ url }) => {
 //Logic around computing data is centralized on the backend instead of the frontend needing to figure out the logic
 
 //Add logic for calculating periods
+
+/*
+The error message "dataPoint.periods is not iterable" indicates that you're trying to iterate over dataPoint.periods, but periods might not be an iterable (such as an array) in some cases. This can happen if dataPoint.periods is undefined or not an array when processing certain elements of the dataPoints array.
+
+To fix this issue, you should add a check to ensure that dataPoint.periods is an iterable array before attempting to loop through it. Here's how you can modify your resolver function to handle this:
+*/
