@@ -1,0 +1,18 @@
+root/
+│
+├── dataPointEvaluator-service/        # Standalone service for Data Point Evaluation
+│   ├── src/
+│   │   ├── dataPointDefinitions/      # Data Point Definitions
+│   │   │   ├── cashflow/              # Update to adding these folders
+│   │   │   │   ├── cogs.js
+│   │   │   │   ├── grossIncome.js
+│   │   │   │   ├── grossRevenue.js
+│   │   │   │   └── index.js
+│   │   ├── dataSources/
+│   │   │   └──dataSources.js         # Sources of where we pull data and used across all models
+│   │   ├── evaluator/
+│   │   │   └──index.js               # Evaluator logic
+│   │   │   └── ...
+│   │   └── ...                        # Other necessary files for the service
+│   ├── package.json
+│   └── ...
